@@ -73,3 +73,12 @@ Decisions I made autonomously while building wisesplit. We can revisit any of th
 ### D-017 — GitHub account: kbrovibes
 **Decision**: Repo lives at `github.com/kbrovibes/wisesplit`, served at `kbrovibes.github.io/wisesplit/`.
 **Why**: That's the `gh` CLI's active account on this machine. To move to `k4rthikr/wisesplit`, transfer the repo or rerun `gh repo create` against that account; `basePath = /wisesplit` in `next.config.ts` stays the same as long as the repo is named `wisesplit`.
+
+### D-018 — Vercel as the primary host; GH Pages as mirror
+**Decision**: Deploy to Vercel as the canonical host (no basePath, custom domains available, edge cache). Keep GH Pages deploy alive as a free mirror.
+**Why**: User has unlimited projects on Hobby tier; Vercel gives a cleaner URL (`wisesplit.vercel.app`) and a path to server-side features later (Workflow DevKit for scheduled reminders, Server Actions for write-paths under RLS). Static export still works, so both hosts serve the same artifact for v0.1.
+**Implementation**: `next.config.ts` now defaults `basePath = ""`; the GH Pages workflow explicitly sets `NEXT_PUBLIC_BASE_PATH=/wisesplit`. Manifest uses relative paths so it works in either scope.
+
+### D-019 — Supabase wiring deferred to v0.2
+**Decision**: Ship v0.1 with localStorage-only persistence on both hosts. Wire Supabase once user provisions a fresh Supabase account.
+**Why**: Existing org is at the 2-project free-tier cap and user wants to keep `snobaddy` + `stonkbro` active. Backlog entry covers the work.

@@ -3,6 +3,7 @@
 Things we deliberately did **not** build in v0.1.0 — captured so they aren't lost.
 
 ## Near-term (v0.2.x)
+- [ ] **Wire Supabase persistence** — schema + RLS already shipped in `supabase/schema.sql`. Need to: (1) create the project on a fresh Supabase account (free tier), (2) enable Google OAuth provider, (3) replace `lib/store/data.ts` with a thin repository that hits `supabase-js` when env vars are present and falls back to the existing localStorage Zustand store otherwise. Today entries persist only in the current browser; this is what makes them cross-device. Owner: karthik will create the account; agent wires the code.
 - [ ] Scheduled reminders via Supabase Edge Function + cron (email via Resend free tier)
 - [ ] Push notifications via Web Push (requires VAPID keys, server)
 - [ ] Multi-language (i18n via `next-intl` — strings already extracted to `lib/i18n/en.ts`)

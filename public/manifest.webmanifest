@@ -2,15 +2,15 @@
   "name": "wisesplit",
   "short_name": "wisesplit",
   "description": "Split bills, beautifully. Free forever.",
-  "start_url": "/wisesplit/",
-  "scope": "/wisesplit/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#fafaf9",
   "theme_color": "#18181b",
   "icons": [
-    { "src": "/wisesplit/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
-    { "src": "/wisesplit/apple-touch-icon.svg", "sizes": "180x180", "type": "image/svg+xml", "purpose": "any maskable" }
+    { "src": "./favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "./apple-touch-icon.svg", "sizes": "180x180", "type": "image/svg+xml", "purpose": "any maskable" }
   ],
   "categories": ["finance", "productivity", "utilities"]
 }
