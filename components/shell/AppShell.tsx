@@ -5,6 +5,7 @@ import { Topbar } from "./Topbar";
 import { MobileNav } from "./MobileNav";
 import { CommandPalette } from "./CommandPalette";
 import { ExpenseDialog } from "@/components/expense/ExpenseDialog";
+import { InstallAndOffline } from "./InstallAndOffline";
 import { useTheme } from "@/lib/store/theme";
 import { useEffect } from "react";
 import { useShortcuts } from "@/hooks/useShortcuts";
@@ -23,6 +24,7 @@ export function AppShell({ title, subtitle, actions, children }: { title?: React
       </div>
       <CommandPalette />
       <ExpenseDialog />
+      <InstallAndOffline />
     </div>
   );
 }
