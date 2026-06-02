@@ -69,3 +69,7 @@ Decisions I made autonomously while building wisesplit. We can revisit any of th
 
 ### D-016 — License: MIT
 **Decision**: Permissive. Anyone can fork and self-host.
+
+### D-017 — GitHub account: kbrovibes
+**Decision**: Repo lives at `github.com/kbrovibes/wisesplit`, served at `kbrovibes.github.io/wisesplit/`.
+**Why**: That's the `gh` CLI's active account on this machine. To move to `k4rthikr/wisesplit`, transfer the repo or rerun `gh repo create` against that account; `basePath = /wisesplit` in `next.config.ts` stays the same as long as the repo is named `wisesplit`.

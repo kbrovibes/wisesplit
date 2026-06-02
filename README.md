@@ -6,7 +6,7 @@
 
 **Split bills, beautifully.** Free forever. Every Splitwise feature, none of the paywalls — and a UI that feels like it belongs in 2026.
 
-[Live demo](https://k4rthikr.github.io/wisesplit/) · [Release notes](./RELEASE_NOTES.md) · [Backlog](./backlog.md) · [Decisions](./DECISIONS.md)
+[Live demo](https://kbrovibes.github.io/wisesplit/) · [Release notes](./RELEASE_NOTES.md) · [Backlog](./backlog.md) · [Decisions](./DECISIONS.md)
 
 </div>
 

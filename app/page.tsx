@@ -21,7 +21,7 @@ export default function Landing() {
         <nav className="hidden sm:flex items-center gap-6 text-sm text-[var(--text-muted)]">
           <a href="#features" className="hover:text-[var(--text)]">Features</a>
           <a href="#why" className="hover:text-[var(--text)]">Why</a>
-          <a href="https://github.com/k4rthikr/wisesplit" target="_blank" rel="noreferrer" className="hover:text-[var(--text)]">GitHub</a>
+          <a href="https://github.com/kbrovibes/wisesplit" target="_blank" rel="noreferrer" className="hover:text-[var(--text)]">GitHub</a>
         </nav>
         <div className="flex items-center gap-2">
           <ThemeToggle />
@@ -101,7 +101,7 @@ export default function Landing() {
           </p>
           <div className="mt-7 flex items-center justify-center gap-3">
             <Link href="/dashboard"><Button variant="primary" size="lg" className="!h-12 !px-5">Open the app</Button></Link>
-            <a href="https://github.com/k4rthikr/wisesplit" target="_blank" rel="noreferrer">
+            <a href="https://github.com/kbrovibes/wisesplit" target="_blank" rel="noreferrer">
               <Button variant="outline" size="lg" className="!h-12 !px-5">Star on GitHub</Button>
             </a>
           </div>
@@ -112,9 +112,9 @@ export default function Landing() {
         <Logo size={18} className="opacity-90" />
         <div className="flex items-center gap-4">
           <span>v0.1.0</span>
-          <a href="https://github.com/k4rthikr/wisesplit" target="_blank" rel="noreferrer" className="hover:text-[var(--text)]">GitHub</a>
-          <a href="https://github.com/k4rthikr/wisesplit/blob/main/RELEASE_NOTES.md" target="_blank" rel="noreferrer" className="hover:text-[var(--text)]">Releases</a>
-          <a href="https://github.com/k4rthikr/wisesplit/blob/main/backlog.md" target="_blank" rel="noreferrer" className="hover:text-[var(--text)]">Backlog</a>
+          <a href="https://github.com/kbrovibes/wisesplit" target="_blank" rel="noreferrer" className="hover:text-[var(--text)]">GitHub</a>
+          <a href="https://github.com/kbrovibes/wisesplit/blob/main/RELEASE_NOTES.md" target="_blank" rel="noreferrer" className="hover:text-[var(--text)]">Releases</a>
+          <a href="https://github.com/kbrovibes/wisesplit/blob/main/backlog.md" target="_blank" rel="noreferrer" className="hover:text-[var(--text)]">Backlog</a>
         </div>
       </footer>
     </div>
