@@ -85,3 +85,8 @@ Decisions I made autonomously while building wisesplit. We can revisit any of th
 ### D-019 — Supabase wiring deferred to v0.2
 **Decision**: Ship v0.1 with localStorage-only persistence on both hosts. Wire Supabase once user provisions a fresh Supabase account.
 **Why**: Existing org is at the 2-project free-tier cap and user wants to keep `snobaddy` + `stonkbro` active. Backlog entry covers the work.
+
+### D-021 — Typography: Geist Sans + Geist Mono, single family
+**Decision**: Drop Inter + Sora. Use **Geist** (Vercel's font) for body, UI, and display, and **Geist Mono** for tabular numbers + keyboard chips. No second display face.
+**Why**: User asked for a font overhaul. Tried Instrument Serif as a display accent first — but it ships at weight 400 only, which would force fake-bold across every `font-display font-semibold` site (most page titles). Going single-family with Geist at heavier weights + tighter tracking lands cleaner, loads one fewer font file, and matches the Vercel/Linear/Cursor aesthetic the rest of the design system aims at.
+**Implementation**: `app/layout.tsx` loads Geist + Geist Mono via `next/font/google`; `--font-display` aliases `--font-sans`. Globals add `letter-spacing: -0.022em` on `.font-display` (slightly tighter at 3xl+), enable `cv11`/`ss01`/`ss03` Geist stylistic sets, and force tabular numerals on `.tabular-nums`.

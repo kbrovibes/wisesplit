@@ -30,9 +30,11 @@
   --radius-md: 10px;
   --radius-lg: 14px;
   --radius-xl: 20px;
-  --font-display: var(--font-display), Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-sans: var(--font-sans), Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+  /* Geist for everything. Display moments use the same family at heavier
+     weights + tighter tracking — adds gravitas without a second font load. */
+  --font-display: var(--font-sans), "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sans: var(--font-sans), "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-mono), "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 [data-theme="dark"] {
@@ -100,6 +102,34 @@ html, body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  font-feature-settings: "cv11", "ss01", "ss03";
+}
+
+/* Display moments: tighter tracking, slightly heavier optical weight. */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.022em;
+}
+.font-display.text-3xl,
+.font-display.text-4xl,
+.font-display.text-5xl,
+.font-display.text-6xl {
+  letter-spacing: -0.034em;
+}
+
+/* Money + counters: always tabular so columns don't dance. */
+.tabular-nums, [class*="tabular-nums"] {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Tiny caps for the dashboard section labels. */
+.label-caps {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
 html {

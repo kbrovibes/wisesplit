@@ -1,11 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Sora } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Toaster } from "@/components/ui/Toast";
 
-const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
-const display = Sora({ subsets: ["latin"], variable: "--font-display", display: "swap" });
+// One family across the app: Geist Sans for body + display, Geist Mono for
+// tabular numbers and ⌘K kbds. Variable weights mean we can hit display
+// gravitas at 600 without loading a second face. Linear / Vercel aesthetic.
+const sans = Geist({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+const mono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
@@ -54,7 +65,7 @@ const swBootstrap = `
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${sans.variable} ${display.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${sans.variable} ${mono.variable}`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
       </head>
