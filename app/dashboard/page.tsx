@@ -87,7 +87,7 @@ export default function Dashboard() {
   const recent = useMemo(() => [...expenses].slice(0, 6), [expenses]);
 
   return (
-    <AppShell title={`Good evening, ${me.name.split(" ")[0]}.`} subtitle={`${expenses.length} expenses across ${groups.length} groups`}>
+    <AppShell title={`${greeting()}, ${me.name.split(" ")[0]}.`} subtitle={`${expenses.length} expenses across ${groups.length} groups`}>
       <div className="flex flex-col gap-6">
         {/* balance cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -226,6 +226,14 @@ export default function Dashboard() {
       </div>
     </AppShell>
   );
+}
+
+function greeting() {
+  const h = new Date().getHours();
+  if (h < 5) return "Up late";
+  if (h < 12) return "Good morning";
+  if (h < 18) return "Good afternoon";
+  return "Good evening";
 }
 
 function BalanceCard({ label, cents, currency, tone }: { label: string; cents: number; currency: string; tone: "positive" | "negative" }) {
