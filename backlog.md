@@ -21,6 +21,9 @@ Things we deliberately did **not** build in v0.1.0 — captured so they aren't l
 - [ ] AI-suggested categories per expense
 - [ ] Conversational add: "we just had dinner, split with sam and priya, $84" via local LLM (no server cost)
 
+## Hosting
+- [ ] Custom domain (e.g. `wisesplit.app`) — currently `wisesplit-three.vercel.app` because `wisesplit` and `wisesplit-two` were taken globally
+
 ## Nice-to-have polish
 - [ ] Confetti SVG burst when a group settles to zero
 - [ ] Per-user custom accent color

@@ -74,6 +74,9 @@ Decisions I made autonomously while building wisesplit. We can revisit any of th
 **Decision**: Repo lives at `github.com/kbrovibes/wisesplit`, served at `kbrovibes.github.io/wisesplit/`.
 **Why**: That's the `gh` CLI's active account on this machine. To move to `k4rthikr/wisesplit`, transfer the repo or rerun `gh repo create` against that account; `basePath = /wisesplit` in `next.config.ts` stays the same as long as the repo is named `wisesplit`.
 
+### D-020 — Production URL: wisesplit-three.vercel.app
+**Decision**: Vercel auto-assigned `wisesplit-three.vercel.app` because the `wisesplit` and `wisesplit-two` subdomains were already taken globally. Functional name, slightly off-brand. Backlog item: register `wisesplit.app` or similar custom domain and point Vercel at it.
+
 ### D-018 — Vercel as the primary host; GH Pages as mirror
 **Decision**: Deploy to Vercel as the canonical host (no basePath, custom domains available, edge cache). Keep GH Pages deploy alive as a free mirror.
 **Why**: User has unlimited projects on Hobby tier; Vercel gives a cleaner URL (`wisesplit.vercel.app`) and a path to server-side features later (Workflow DevKit for scheduled reminders, Server Actions for write-paths under RLS). Static export still works, so both hosts serve the same artifact for v0.1.
