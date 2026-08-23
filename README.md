@@ -6,7 +6,7 @@
 
 **Split bills, beautifully.** Free forever. Every Splitwise feature, none of the paywalls — and a UI that feels like it belongs in 2026.
 
-[Live (Vercel)](https://wisesplit-three.vercel.app/) · [Live (GH Pages)](https://kbrovibes.github.io/wisesplit/) · [Release notes](./RELEASE_NOTES.md) · [Backlog](./backlog.md) · [Decisions](./DECISIONS.md)
+[**Landing page**](https://kbrovibes.github.io/wisesplit/landing/) · [Live (Vercel)](https://wisesplit-three.vercel.app/) · [Live (GH Pages)](https://kbrovibes.github.io/wisesplit/) · [Release notes](./RELEASE_NOTES.md) · [Backlog](./backlog.md) · [Decisions](./DECISIONS.md)
 
 </div>
 
@@ -74,7 +74,7 @@ That's it.
 app/             # Next.js routes (App Router)
 components/      # ui primitives, icons, illustrations, shell
 lib/             # supabase, debt math, search, currency, nlp
-public/          # favicon, manifest, service worker
+public/          # favicon, manifest, service worker, landing/ (the /landing/ page)
 ```
 
 ## Keyboard

@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>Wise Split — split shared bills with friends</title>
+<meta name="description" content="Track shared expenses with friends, split them four ways, and settle up in the fewest transfers. Free forever, no ads, no tracking, no paid tier.">
+<meta name="author" content="Karthik Rajan">
+<meta name="color-scheme" content="light">
+
+<link rel="canonical" href="https://kbrovibes.github.io/wisesplit/landing/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kbrovibes.github.io/wisesplit/landing/">
+<meta property="og:title" content="Wise Split — split shared bills with friends">
+<meta property="og:description" content="Track shared expenses, split them four ways, and settle up in the fewest transfers. Free forever, no ads, no tracking.">
+<meta property="og:image" content="https://kbrovibes.github.io/wisesplit/landing/media/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2318181b'/%3E%3Cpath d='M14 22c0-3.314 2.686-6 6-6h11c5.523 0 10 4.477 10 10c0 3.314-2.686 6-6 6H20c-3.314 0-6-2.686-6-6v-4z' fill='%235b6cff'/%3E%3Cpath d='M50 42c0 3.314-2.686 6-6 6H33c-5.523 0-10-4.477-10-10c0-3.314 2.686-6 6-6h15c3.314 0 6 2.686 6 6v4z' fill='%23fafaf9'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   THEME TOKENS — derived from wisesplit's app/globals.css :root block.
+   --accent is the app's #5b6cff indigo darkened to #4a58e0 so it passes
+   4.5:1 as text; the raw hue stays a fill colour, exactly as the app uses it.
+   ========================================================================== */
+:root{
+  --bg:            #fafaf9;   /* --bg */
+  --surface:       #ffffff;   /* --surface */
+  --surface-2:     #f4f4f2;   /* --bg-sunk */
+  --ink:           #18181b;   /* --text */
+  --muted:         #6b6b70;   /* --text-muted */
+  --accent:        #4a58e0;   /* --accent #5b6cff, darkened for text contrast */
+  --accent-ink:    #ffffff;
+  --accent-2:      #1a9a6c;   /* --positive */
+  --hairline:      #e7e5e0;   /* --border */
+  --radius:        14px;      /* --radius-lg, the app's card radius */
+  --shadow:        0 4px 12px -2px rgba(20,20,30,.08), 0 2px 4px -2px rgba(20,20,30,.04);
+  --font-display:  "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body:     "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:     "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  color-scheme:    light;
+}
+/* ==================== end theme tokens =================================== */
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  font-feature-settings:"cv11","ss01","ss03"}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{margin:0;line-height:1.1;letter-spacing:-.022em;font-weight:600;font-family:var(--font-display)}
+h1,.head h2,.slide .copy h3{letter-spacing:-.034em}
+p{margin:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+::selection{background:var(--accent);color:var(--accent-ink)}
+
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+/* the app's .label-caps: 11px mono, uppercase, .08em tracking, muted */
+.eyebrow{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted)}
+.lede{color:var(--muted);font-size:17px;max-width:62ch}
+.band{background:var(--surface-2)}
+section{scroll-margin-top:80px}
+.tnum{font-variant-numeric:tabular-nums}
+code{font-family:var(--font-mono);font-size:.92em;background:var(--surface-2);border:1px solid var(--hairline);border-radius:5px;padding:1px 5px}
+
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:var(--accent-ink);
+  padding:12px 18px;z-index:99;border-radius:0 0 10px 0;font-weight:600}
+.skip:focus{left:0}
+
+/* ---------- buttons / the three link affordances ---------- */
+/* wisesplit uses an inverted primary: ink fill, not accent fill. */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;
+  font-size:14px;font-weight:600;text-decoration:none;border:1px solid transparent;
+  transition:background .16s,color .16s,border-color .16s,transform .16s;white-space:nowrap}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--ink);color:var(--bg)}
+.btn-primary:hover{background:var(--accent);color:var(--accent-ink)}
+.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--hairline)}
+.btn-ghost:hover{border-color:var(--ink)}
+.btn-quiet{color:var(--muted);padding:11px 10px}
+.btn-quiet:hover{color:var(--ink)}
+.btn svg{width:15px;height:15px;flex:none;fill:currentColor}
+
+/* ---------- header ---------- */
+.site{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 86%,transparent);
+  backdrop-filter:saturate(1.6) blur(12px);border-bottom:1px solid var(--hairline)}
+.site .wrap{display:flex;align-items:center;gap:20px;height:62px}
+.wordmark{font-family:var(--font-display);font-size:19px;font-weight:600;letter-spacing:-.028em;
+  text-decoration:none;display:flex;align-items:baseline;gap:.4em}
+.wordmark b{font-weight:600}
+.wordmark b::after{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;
+  background:var(--accent);margin-left:2px;vertical-align:baseline}
+.wordmark span{font-size:12px;font-family:var(--font-mono);color:var(--muted);letter-spacing:.02em}
+.site nav{display:flex;gap:22px;margin-left:auto;font-size:14px}
+.site nav a{color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1.5px solid transparent}
+.site nav a:hover{color:var(--ink)}
+.site nav a[aria-current="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.site .links{display:flex;align-items:center;gap:6px;margin-left:auto}
+.site nav + .links{margin-left:16px}
+@media (max-width:980px){.site nav{display:none}.site .links .label-long{display:none}}
+@media (max-width:560px){.site .wrap{gap:10px;padding:0 16px}.btn{padding:9px 13px;font-size:13px}
+  .wordmark span{display:none}}
+
+/* ---------- hero ---------- */
+.hero{padding:72px 0 24px}
+.hero h1{font-size:clamp(34px,6.2vw,60px);max-width:15ch}
+.hero h1 em{font-style:normal;font-weight:600;color:var(--accent)}
+.hero .lede{margin-top:18px;font-size:clamp(16px,2.2vw,19px)}
+.hero .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;padding:0;list-style:none}
+.facts li{font-size:12.5px;color:var(--muted);border:1px solid var(--hairline);background:var(--surface);
+  border-radius:999px;padding:5px 12px}
+.hero-shot{margin-top:44px}
+
+/* ---------- screenshot frames ---------- */
+.frame{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--radius);
+  box-shadow:var(--shadow);overflow:hidden}
+.frame .chrome{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid var(--hairline);
+  background:var(--surface-2)}
+.frame .chrome i{width:9px;height:9px;border-radius:50%;background:var(--hairline);flex:none}
+.frame .chrome .url{margin-left:8px;font-family:var(--font-mono);font-size:11px;color:var(--muted);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.frame .media{aspect-ratio:16/10;background:var(--surface-2)}
+.frame .media > *{width:100%;height:100%;object-fit:cover;object-position:top center}
+
+/* ---------- generic section head ---------- */
+.head{max-width:70ch}
+.head h2{font-size:clamp(26px,3.6vw,38px);margin-top:10px}
+.head p{margin-top:14px;color:var(--muted);font-size:17px}
+.pad{padding:76px 0}
+.pad-sm{padding:56px 0}
+
+/* ---------- "what it is" ---------- */
+.what{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:start}
+.what p + p{margin-top:14px}
+.what .prose{font-size:17.5px}
+.what .prose strong{font-weight:600}
+.forwho{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--radius);padding:22px 24px}
+.forwho h3{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);font-weight:500}
+.forwho ul{margin:14px 0 0;padding-left:0;list-style:none;display:grid;gap:12px}
+.forwho li{display:flex;gap:10px;font-size:15px;color:var(--muted)}
+.forwho li b{color:var(--ink);font-weight:600}
+.forwho li::before{content:"";flex:none;width:6px;height:6px;margin-top:9px;border-radius:50%;background:var(--accent-2)}
+@media (max-width:860px){.what{grid-template-columns:1fr;gap:32px}}
+
+/* ---------- carousel ---------- */
+.tour{padding:76px 0 64px;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+.tour .bar{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+  margin-top:34px;gap:0;overscroll-behavior-x:contain}
+.track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:center;scroll-snap-stop:always;
+  display:grid;grid-template-columns:1.25fr 1fr;gap:52px;align-items:center;padding:0 24px}
+.slide .copy h3{font-size:clamp(24px,3.4vw,36px);margin-top:8px}
+.slide .copy h3 em{font-style:normal;font-weight:600;color:var(--accent)}
+.slide .copy p{margin-top:14px;color:var(--muted);font-size:16.5px;max-width:44ch}
+.slide .copy ul{margin:18px 0 0;padding-left:0;list-style:none;display:grid;gap:8px;font-size:14.5px;color:var(--muted)}
+.slide .copy li::before{content:"— ";color:var(--accent)}
+.controls{display:flex;align-items:center;gap:14px;margin-top:30px;justify-content:center}
+.dots{display:flex;gap:8px}
+.dot{width:8px;height:8px;padding:0;border:0;border-radius:999px;background:color-mix(in srgb,var(--ink) 22%,transparent);
+  cursor:pointer;transition:width .2s,background .2s}
+.dot[aria-current="true"]{width:26px;background:var(--accent)}
+.arrow,.pause{width:34px;height:34px;display:grid;place-items:center;border-radius:999px;cursor:pointer;
+  border:1px solid var(--hairline);background:var(--surface);color:var(--ink)}
+.arrow:hover,.pause:hover{border-color:var(--ink)}
+.arrow svg,.pause svg{width:14px;height:14px;fill:currentColor}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+@media (max-width:900px){
+  .slide{grid-template-columns:1fr;gap:26px;padding:0 20px}
+  .slide .shot{order:-1}
+  .slide .copy p{max-width:none}
+}
+
+/* ---------- steps ---------- */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;margin-top:38px;
+  background:var(--hairline);border:1px solid var(--hairline);border-radius:var(--radius);overflow:hidden}
+.step{background:var(--bg);padding:26px 24px}
+.step .n{font-family:var(--font-mono);font-size:12px;font-weight:500;color:var(--accent);letter-spacing:.08em}
+.step h3{font-size:17px;margin-top:12px}
+.step p{margin-top:8px;font-size:14.5px;color:var(--muted)}
+
+/* ---------- feature grid ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:38px}
+.card{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--radius);padding:22px}
+.card h3{font-size:16px;display:flex;align-items:center;gap:9px}
+.card h3 svg{width:16px;height:16px;fill:none;stroke:var(--accent);stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round;flex:none}
+.card p{margin-top:9px;font-size:14.5px;color:var(--muted)}
+
+/* ---------- stack ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;padding:0;list-style:none}
+.chips li{font-family:var(--font-mono);font-size:12.5px;background:var(--surface);border:1px solid var(--hairline);
+  border-radius:999px;padding:6px 13px;color:var(--muted)}
+.note{margin-top:22px;font-size:14.5px;color:var(--muted);max-width:64ch}
+
+/* ---------- faq ---------- */
+.faq{margin-top:34px;border-top:1px solid var(--hairline);max-width:78ch}
+.faq details{border-bottom:1px solid var(--hairline)}
+.faq summary{cursor:pointer;list-style:none;padding:18px 2px;font-weight:600;font-size:16px;
+  display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--accent);font-weight:400;font-size:20px;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq p{padding:0 2px 20px;color:var(--muted);font-size:15.5px;max-width:66ch}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--hairline);background:var(--surface-2);padding:52px 0 40px;margin-top:0}
+.foot{display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:flex-start}
+.foot .links{display:flex;flex-wrap:wrap;gap:8px}
+.foot small{display:block;color:var(--muted);font-size:13px;line-height:1.7}
+.foot a.plain{color:var(--muted)}
+.foot a.plain:hover{color:var(--ink)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .btn:hover{transform:none}
+}
+@media (min-width:1px){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ══ HEADER — link affordances #1 ══ -->
+<header class="site">
+  <div class="wrap">
+    <a class="wordmark" href="#top"><b>Wise Split</b><span>shared expenses</span></a>
+
+    <nav aria-label="Page sections">
+      <a href="#what">What it is</a>
+      <a href="#tour">Tour</a>
+      <a href="#how">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <div class="links">
+      <a class="btn btn-primary" href="https://kbrovibes.github.io/wisesplit/" rel="noopener">Open the app</a>
+      <a class="btn btn-ghost" href="https://github.com/kbrovibes/wisesplit" rel="noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.93-.89-1.18-.89-1.18-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.72 1.23 1.88.87 2.34.67.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        <span class="label-long">View source</span>
+      </a>
+      <a class="btn btn-quiet" href="https://kbrovibes.github.io/">All projects</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ══ 1. HERO ══════════════════════════════════════════════════════ -->
+<section id="top" class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Shared expenses</p>
+    <h1>Split shared bills, settle in <em>fewer</em> transfers.</h1>
+    <p class="lede">An expense splitter for the group trip, the flatshare and the book club. Everything Splitwise puts behind Pro, without the Pro — and without the ads.</p>
+
+    <div class="cta">
+      <a class="btn btn-primary" href="https://kbrovibes.github.io/wisesplit/" rel="noopener">Open the app</a>
+      <a class="btn btn-ghost" href="https://github.com/kbrovibes/wisesplit" rel="noopener">View source on GitHub</a>
+      <a class="btn btn-quiet" href="https://kbrovibes.github.io/">← Back to all projects</a>
+    </div>
+
+    <ul class="facts">
+      <li>Free forever, no paid tier</li>
+      <li>MIT licensed</li>
+      <li>Next.js 16, static export</li>
+      <li>Installable PWA</li>
+    </ul>
+
+    <div class="hero-shot frame">
+      <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span class="url">kbrovibes.github.io/wisesplit/</span></div>
+      <div class="media">
+        <img src="media/hero.jpg" fetchpriority="high"
+             alt="Wise Split home page with the split bills headline and a receipt and donut illustration">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 2. WHAT IT IS ══════════════════════════════════════════════ -->
+<section id="what" class="pad">
+  <div class="wrap what">
+    <div>
+      <p class="eyebrow">What it is</p>
+      <h2 style="font-size:clamp(26px,3.6vw,38px);margin-top:10px">A ledger for money four people keep fronting</h2>
+      <div class="prose" style="margin-top:18px">
+        <p>A week in Lisbon turns into forty small payments and one group chat where nobody remembers who covered the Airbnb. Splitwise handles the arithmetic, then puts recurring expenses, itemisation, currency conversion and charts behind Pro, and shows everyone else ads.</p>
+        <p>Wise Split takes the same ledger — who paid, who owes, in which currency — and runs the whole group's debt graph through a minimisation pass before it tells anyone to pay anyone. Splitwise nudges pairwise. This collapses the cycles first, then names the transfers.</p>
+      </div>
+    </div>
+    <aside class="forwho">
+      <h3>Who it's for</h3>
+      <ul>
+        <li><span><b>Groups that travel.</b> Euro and dollar balances sit side by side, netted per currency rather than mashed into one number.</span></li>
+        <li><span><b>People who type fast.</b> A command palette, a slash-to-search, and a quick-add line that parses "dinner with sam $48 yesterday".</span></li>
+        <li><span><b>Not for receipt hoarders.</b> The app is SVG-only by design, so there are no image uploads at all. Attach a note instead.</span></li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ══ 3. TOUR ════════════════════════════════════════════════════ -->
+<section id="tour" class="tour band"
+         aria-roledescription="carousel" aria-label="Product tour">
+  <div class="wrap bar">
+    <div class="head">
+      <p class="eyebrow">Tour</p>
+      <h2>The screens you'll actually use</h2>
+    </div>
+    <div class="controls" style="margin-top:0">
+      <button class="arrow" data-prev type="button" aria-controls="track" aria-label="Previous slide">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.5 2 4.5 8l6 6 1.4-1.4L7.3 8l4.6-4.6z"/></svg></button>
+      <button class="arrow" data-next type="button" aria-controls="track" aria-label="Next slide">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 2 4.1 3.4 8.7 8l-4.6 4.6L5.5 14l6-6z"/></svg></button>
+      <button class="pause" data-toggle type="button" aria-label="Pause automatic slide rotation" aria-pressed="false">
+        <svg viewBox="0 0 16 16" aria-hidden="true" data-icon><rect x="4" y="3" width="3" height="10" rx="1"/><rect x="9" y="3" width="3" height="10" rx="1"/></svg></button>
+    </div>
+  </div>
+
+  <div class="track" id="track" tabindex="0" role="group" aria-label="Slides, use arrow keys">
+
+    <article class="slide" role="group" aria-roledescription="slide" aria-label="1 of 3: Settling up in fewer transfers">
+      <div class="shot frame">
+        <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span class="url">kbrovibes.github.io/wisesplit/dashboard/</span></div>
+        <div class="media">
+          <img src="media/tour-01-dashboard.jpg" loading="lazy" decoding="async"
+               alt="Demo dashboard showing amounts owed, net balances by currency, a spend chart and recent activity">
+        </div>
+      </div>
+      <div class="copy">
+        <p class="eyebrow">Settle up</p>
+        <h3>Fewer <em>transfers</em></h3>
+        <p>The dashboard nets what you are owed against what you owe, per currency, and lists every person you have an open balance with. Settle-up runs the group's debt graph through a minimisation pass instead of nudging each pair separately.</p>
+        <ul>
+          <li>Net by currency, not one blended total</li>
+          <li>Per-person balances in one column</li>
+          <li>Debt-graph minimisation, not pairwise</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="slide" role="group" aria-roledescription="slide" aria-label="2 of 3: Charts drawn in SVG">
+      <div class="shot frame">
+        <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span class="url">kbrovibes.github.io/wisesplit/dashboard/</span></div>
+        <div class="media">
+          <img src="media/tour-02-charts.jpg" loading="lazy" decoding="async"
+               alt="Fourteen-day spend line chart beside a category donut labelled Home, Travel, Groceries and Food">
+        </div>
+      </div>
+      <div class="copy">
+        <p class="eyebrow">Charts</p>
+        <h3>Where it <em>goes</em></h3>
+        <p>Your share of the last fourteen days, plus a category breakdown of the same period. Both charts are hand-rolled SVG. There is no charting library in the dependency list and no raster image anywhere in the app.</p>
+        <ul>
+          <li>Hand-rolled SVG, no chart library</li>
+          <li>Category split as percentages</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="slide" role="group" aria-roledescription="slide" aria-label="3 of 3: Dark mode and offline">
+      <div class="shot frame">
+        <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span class="url">kbrovibes.github.io/wisesplit/dashboard/</span></div>
+        <div class="media">
+          <img src="media/tour-03-dark.jpg" loading="lazy" decoding="async"
+               alt="The same dashboard in dark mode with euro and dollar balances listed for each person">
+        </div>
+      </div>
+      <div class="copy">
+        <p class="eyebrow">Dark mode</p>
+        <h3>Dark, and <em>offline</em></h3>
+        <p>Light, dark, or follow the system. The theme is set on the document before first paint, so there is no white flash on load. A manifest and a service worker make it installable, and the shell loads from cache with no network.</p>
+        <ul>
+          <li>Theme applied before hydration</li>
+          <li>Cache-first shell, network-first pages</li>
+        </ul>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="controls">
+    <div class="dots" aria-label="Choose a slide">
+      <button class="dot" type="button" aria-current="true"  aria-label="Slide 1"></button>
+      <button class="dot" type="button" aria-current="false" aria-label="Slide 2"></button>
+      <button class="dot" type="button" aria-current="false" aria-label="Slide 3"></button>
+    </div>
+  </div>
+  <p class="sr" aria-live="polite" data-live></p>
+</section>
+
+<!-- ══ 4. HOW IT WORKS ════════════════════════════════════════════ -->
+<section id="how" class="pad">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">How it works</p>
+      <h2>From an awkward group chat to a settled ledger</h2>
+      <p>Four steps, in the order a first-time visitor actually meets them.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><p class="n tnum">01</p><h3>Open the demo</h3><p>There is no sign-up wall. The published build seeds a ledger in your browser so you can poke at real balances straight away.</p></div>
+      <div class="step"><p class="n tnum">02</p><h3>Add an expense</h3><p>Press <code>N</code>, or type "dinner with sam $48 yesterday" into quick add and let the parser fill in the amount, the date and the people.</p></div>
+      <div class="step"><p class="n tnum">03</p><h3>Split it your way</h3><p>Equal, percent, share-based, or exact amounts. Money is stored as integer cents plus an ISO currency code, then formatted with <code>Intl</code>.</p></div>
+      <div class="step"><p class="n tnum">04</p><h3>Settle up</h3><p>The balances view collapses the group's debt graph and names the payments to make. Reminders open a mailto draft or the system share sheet.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 5. FEATURES ════════════════════════════════════════════════ -->
+<section id="features" class="pad band">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Features</p>
+      <h2>What's actually in it</h2>
+    </div>
+    <div class="grid">
+      <div class="card"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Four split modes</h3><p>Equal, percent, share-based, or exact amounts, chosen per expense rather than per group.</p></div>
+      <div class="card"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg>Three search modes</h3><p>Substring, fuzzy through Fuse.js, and raw regular expressions across every expense, group and friend.</p></div>
+      <div class="card"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg>Quick add by typing</h3><p>Type one sentence and the parser pulls out the amount, the date and the people involved.</p></div>
+      <div class="card"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H15a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h6.5"/></svg>Debt-graph settle-up</h3><p>Minimises the number of transfers a group needs instead of settling every pair separately.</p></div>
+      <div class="card"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M9.5 10h5M9.5 14h5"/></svg>Multi-currency</h3><p>Amounts held as integer cents plus an ISO 4217 code, rendered with <code>Intl.NumberFormat</code>.</p></div>
+      <div class="card"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 10h.01M11 10h.01M15 10h.01M8 14h8"/></svg>Keyboard first</h3><p>Command palette, slash to search, N for a new expense, and G-then-letter to jump around.</p></div>
+      <div class="card"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>Installable PWA</h3><p>A custom manifest and service worker; the app shell loads from cache when you are offline.</p></div>
+      <div class="card"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7.5 4.5v9L12 21l-7.5-4.5v-9z"/><path d="M12 12l7.5-4.5M12 12v9M12 12L4.5 7.5"/></svg>Pure SVG</h3><p>Every icon, chart, illustration and avatar is vector. There is no raster image in the repository.</p></div>
+      <div class="card"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M6.5 6.5l11 11"/></svg>No tracking</h3><p>Zero analytics, zero third-party scripts, zero ads. There is nothing to opt out of.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 6. BUILT WITH ══════════════════════════════════════════════ -->
+<section id="stack" class="pad-sm">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Built with</p>
+      <h2>The stack, and where the data lives</h2>
+    </div>
+    <ul class="chips">
+      <li>Next.js 16</li><li>React 19</li><li>TypeScript</li><li>Tailwind CSS v4</li><li>Supabase</li>
+      <li>TanStack Query</li><li>Zustand</li><li>Fuse.js</li><li>Zod</li>
+    </ul>
+    <p class="note">A static export, deployed to GitHub Pages by Actions and mirrored on Vercel. The published build keeps your ledger in the browser's local storage, so nothing leaves the device. Supabase Google sign-in and Postgres with row-level security are in the source but not switched on for this deploy. MIT licensed, so you can fork it and point it at your own Supabase project.</p>
+  </div>
+</section>
+
+<!-- ══ 7. FAQ ═════════════════════════════════════════════════════ -->
+<section id="faq" class="pad-sm">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">FAQ</p>
+      <h2>Reasonable questions</h2>
+    </div>
+    <div class="faq">
+      <details open><summary>Is it free?</summary><p>Yes, and there is no paid tier to upgrade to. The licence is MIT, so you can fork it, host it and rebrand it. Self-hosting costs whatever your own Supabase project costs, which on the free tier is nothing.</p></details>
+      <details><summary>Do I need an account?</summary><p>Not on this build. It runs in demo mode with a seeded ledger, so there is no sign-up step. Google sign-in through Supabase exists in the source but is not enabled on the published copy yet.</p></details>
+      <details><summary>Where does my data go?</summary><p>Nowhere. No analytics, no third-party scripts, no ads. On the published build everything stays in your browser's local storage. Self-host it against your own Supabase project and it goes to your Postgres, behind row-level security.</p></details>
+      <details><summary>Does it work on my phone?</summary><p>Yes. It ships a web app manifest and a service worker, so you can install it to the home screen and the shell still loads without a connection. There is no App Store or Play Store build.</p></details>
+      <details><summary>Can I attach a photo of the receipt?</summary><p>No. The app is SVG-only by design, which means it has no image upload path at all. That was a deliberate trade, not an oversight. Attach a note to the expense instead.</p></details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ══ FOOTER — link affordances #2 ══ -->
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a class="wordmark" href="#top" style="text-decoration:none"><b>Wise Split</b><span>shared expenses</span></a>
+      <small style="margin-top:12px">
+        Built by <a class="plain" href="https://karthikrajan.info" rel="noopener">Karthik Rajan</a>.<br>
+        Last updated <time datetime="2026-08">August 2026</time>.
+      </small>
+    </div>
+    <div class="links">
+      <a class="btn btn-primary" href="https://kbrovibes.github.io/wisesplit/" rel="noopener">Open the app</a>
+      <a class="btn btn-ghost" href="https://github.com/kbrovibes/wisesplit" rel="noopener">View source on GitHub</a>
+      <a class="btn btn-ghost" href="https://kbrovibes.github.io/">All projects</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   Markup-driven carousel: add or remove .slide elements (and
+   matching .dot buttons) and everything below adapts.
+   ============================================================ */
+(function () {
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  /* ---------- 1. Carousel ---------- */
+  var track = document.getElementById("track");
+  if (track) {
+    var slides = Array.prototype.slice.call(track.querySelectorAll(".slide"));
+    var dots   = Array.prototype.slice.call(document.querySelectorAll(".dot"));
+    var live   = document.querySelector("[data-live]");
+    var toggle = document.querySelector("[data-toggle]");
+    var index  = 0;
+    var paused = false;      // user asked for pause
+    var resting = true;      // no pointer/focus inside right now
+    var timer  = null;
+    var AUTOPLAY_MS = 6500;
+
+    function label(i) {
+      var s = slides[i];
+      var h = s && s.querySelector(".copy h3");
+      return "Slide " + (i + 1) + " of " + slides.length + (h ? ": " + h.textContent.trim() : "");
+    }
+
+    function paint(i) {
+      index = i;
+      dots.forEach(function (d, n) { d.setAttribute("aria-current", n === i ? "true" : "false"); });
+      if (live) live.textContent = label(i);
+    }
+
+    function goTo(i, smooth) {
+      var n = (i + slides.length) % slides.length;
+      track.scrollTo({
+        left: n * track.clientWidth,
+        behavior: smooth && !reduce.matches ? "smooth" : "auto"
+      });
+      paint(n);
+    }
+
+    /* scroll-spy: the scroll position is the source of truth */
+    var raf = null;
+    track.addEventListener("scroll", function () {
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = null;
+        var n = Math.round(track.scrollLeft / track.clientWidth);
+        if (n !== index && slides[n]) paint(n);
+      });
+    }, { passive: true });
+
+    dots.forEach(function (d, n) {
+      d.addEventListener("click", function () { rest(false); goTo(n, true); });
+    });
+    var prev = document.querySelector("[data-prev]");
+    var next = document.querySelector("[data-next]");
+    if (prev) prev.addEventListener("click", function () { rest(false); goTo(index - 1, true); });
+    if (next) next.addEventListener("click", function () { rest(false); goTo(index + 1, true); });
+
+    /* keyboard: arrows when the track (or anything inside it) has focus */
+    track.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") { e.preventDefault(); rest(false); goTo(index + 1, true); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); rest(false); goTo(index - 1, true); }
+      else if (e.key === "Home") { e.preventDefault(); rest(false); goTo(0, true); }
+      else if (e.key === "End") { e.preventDefault(); rest(false); goTo(slides.length - 1, true); }
+    });
+
+    /* autoplay, and every way it can stop */
+    var PLAY = '<path d="M4 2.5v11l9-5.5z"></path>';
+    var PAUSE = '<rect x="4" y="3" width="3" height="10" rx="1"></rect><rect x="9" y="3" width="3" height="10" rx="1"></rect>';
+
+    function rest(v) { resting = v; }
+
+    function tick() {
+      if (paused || !resting || document.hidden) return;
+      goTo(index + 1, true);
+    }
+
+    function start() {
+      stop();
+      if (reduce.matches) return;      /* honour prefers-reduced-motion: no autoplay */
+      timer = setInterval(tick, AUTOPLAY_MS);
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+    function setPaused(v) {
+      paused = v;
+      if (toggle) {
+        toggle.setAttribute("aria-pressed", v ? "true" : "false");
+        toggle.setAttribute("aria-label", v ? "Resume automatic slide rotation" : "Pause automatic slide rotation");
+        var icon = toggle.querySelector("[data-icon]");
+        if (icon) icon.innerHTML = v ? PLAY : PAUSE;
+      }
+    }
+
+    if (toggle) {
+      if (reduce.matches) { toggle.hidden = true; }
+      toggle.addEventListener("click", function () { setPaused(!paused); });
+    }
+
+    /* hovering, touching, or tabbing into the carousel suspends rotation */
+    ["pointerenter", "pointerdown", "focusin"].forEach(function (ev) {
+      track.addEventListener(ev, function () { rest(false); });
+    });
+    ["pointerleave", "focusout"].forEach(function (ev) {
+      track.addEventListener(ev, function () { rest(true); });
+    });
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) stop(); else start();
+    });
+    reduce.addEventListener("change", function () { start(); if (toggle) toggle.hidden = reduce.matches; });
+
+    /* keep the slide aligned when the viewport changes width */
+    var rt = null;
+    window.addEventListener("resize", function () {
+      clearTimeout(rt);
+      rt = setTimeout(function () { goTo(index, false); }, 120);
+    });
+
+    paint(0);
+    start();
+  }
+
+  /* ---------- 2. Header scroll-spy ---------- */
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll(".site nav a"));
+  var targets = navLinks
+    .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+    .filter(Boolean);
+
+  if (targets.length && "IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(function (a) {
+          a.setAttribute("aria-current", a.getAttribute("href") === "#" + entry.target.id ? "true" : "false");
+        });
+      });
+    }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+    targets.forEach(function (t) { io.observe(t); });
+  }
+})();
+</script>
+</body>
+</html>
